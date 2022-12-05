@@ -1,6 +1,9 @@
+from dependencies import Package
+
 from django.views.generic import TemplateView
 
-from bookshelf.repositories import load_subscribed_categories
+
+repositories = Package("bookshelf.repositories")
 
 
 class CategoryListView(TemplateView):
@@ -8,4 +11,4 @@ class CategoryListView(TemplateView):
 
     @property
     def extra_context(self):
-        return {"categories": load_subscribed_categories(self.request.profile_id)}
+        return {"categories": repositories.load_subscribed_categories(self.request.profile_id)}

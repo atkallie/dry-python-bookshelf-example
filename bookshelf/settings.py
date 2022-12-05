@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     # Third-party.
     "django_extensions",
     "debug_toolbar",
-    "raven.contrib.django.raven_compat",
+    # "raven.contrib.django.raven_compat",
     "stories.contrib.debug_toolbars.django",
     # Project.
     "bookshelf.apps.BookshelfConfig",
@@ -103,4 +103,4 @@ INTERNAL_IPS = [gethostbyname(gethostname())[:-1] + "1"]
 
 SENTRY_CLIENT = "stories.contrib.sentry.django.DjangoClient"
 
-RAVEN_CONFIG = {"dsn": env("SENTRY_DSN")}
+# RAVEN_CONFIG = {"dsn": env("SENTRY_DSN")}

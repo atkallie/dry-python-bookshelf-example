@@ -1,7 +1,9 @@
+from dependencies import Package
+
 from django.views.generic import TemplateView
 
-from bookshelf.repositories import load_categories_for_purchase
-from bookshelf.repositories import load_cheapest_prices_for_categories
+
+repositories = Package("bookshelf.repositories")
 
 
 class CategoryShopView(TemplateView):
@@ -9,6 +11,6 @@ class CategoryShopView(TemplateView):
 
     @property
     def extra_context(self):
-        categories = load_categories_for_purchase(self.request.profile_id)
-        prices = load_cheapest_prices_for_categories(categories)
+        categories = repositories.load_categories_for_purchase(self.request.profile_id)
+        prices = repositories.load_cheapest_prices_for_categories(categories)
         return {"categories": categories, "prices": prices}

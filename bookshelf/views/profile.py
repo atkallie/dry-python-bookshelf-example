@@ -1,6 +1,9 @@
+from dependencies import Package
+
 from django.views.generic import TemplateView
 
-from bookshelf.repositories import load_profile
+
+repositories = Package("bookshelf.repositories")
 
 
 class ProfileView(TemplateView):
@@ -8,4 +11,4 @@ class ProfileView(TemplateView):
 
     @property
     def extra_context(self):
-        return {"profile": load_profile(self.request.profile_id)}
+        return {"profile": repositories.load_profile(self.request.profile_id)}

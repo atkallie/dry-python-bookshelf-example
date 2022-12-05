@@ -1,6 +1,9 @@
+from dependencies import Package
+
 from django.views.generic import TemplateView
 
-from bookshelf.repositories import load_notifications
+
+repositories = Package("bookshelf.repositories")
 
 
 class NotificationListView(TemplateView):
@@ -8,4 +11,4 @@ class NotificationListView(TemplateView):
 
     @property
     def extra_context(self):
-        return {"notifications": load_notifications(self.request.profile_id)}
+        return {"notifications": repositories.load_notifications(self.request.profile_id)}

@@ -1,9 +1,10 @@
+from dependencies import Package
+
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
-from bookshelf.repositories import load_category
-from bookshelf.repositories import load_entries
-from bookshelf.repositories import load_subscription
+
+repositories = Package("bookshelf.repositories")
 
 
 class CategoryDetailView(TemplateView):
@@ -14,9 +15,9 @@ class CategoryDetailView(TemplateView):
         # TODO: Is it better to keep this business logic in the
         # service layer?
 
-        category = load_category(self.kwargs["id"])
+        category = repositories.load_category(self.kwargs["id"])
 
-        subscription = load_subscription(category, self.request.profile_id)
+        subscription = repositories.load_subscription(category, self.request.profile_id)
 
         if subscription is None:
             return {
@@ -27,6 +28,6 @@ class CategoryDetailView(TemplateView):
         if subscription.is_expired:
             return {"category": category, "error": _("Your subscription expires.")}
 
-        entries = load_entries(category)
+        entries = repositories.load_entries(category)
 
         return {"category": category, "entries": entries}
